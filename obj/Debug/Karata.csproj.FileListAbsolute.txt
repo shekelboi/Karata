@@ -1,0 +1,7 @@
+C:\Users\Kevin\source\repos\Karata\bin\Debug\Karata.exe.config
+C:\Users\Kevin\source\repos\Karata\bin\Debug\Karata.exe
+C:\Users\Kevin\source\repos\Karata\bin\Debug\Karata.pdb
+C:\Users\Kevin\source\repos\Karata\obj\Debug\Karata.csprojAssemblyReference.cache
+C:\Users\Kevin\source\repos\Karata\obj\Debug\Karata.csproj.CoreCompileInputs.cache
+C:\Users\Kevin\source\repos\Karata\obj\Debug\Karata.exe
+C:\Users\Kevin\source\repos\Karata\obj\Debug\Karata.pdb
