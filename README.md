@@ -28,4 +28,4 @@ Special cards include:
 - Joker: draw five cards. Next player can put down any card that is of the same color as the joker.
 - Ace: when put on card two, three or joker the player doesn't need to pick up any cards. The next player can put down any card. When placed on a non-sepcial card or an ace the player can choose any symbol that the next player has to put down.
 
-Two can be placed on two, three can be placed on three and joker can be placed on joker. In this case, the next player has to draw the same amounts of cards accordingly.
+Two can be placed on two, three can be placed on three and joker can be placed on joker. In this case, the next player has to draw the same amounts of cards accordingly. In case of joker on joker the number of cards that the player has to draw adds together (e.g. 2 jokers = 10 cards, 3 jokers = 15 cards).
