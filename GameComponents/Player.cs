@@ -9,11 +9,11 @@ namespace Karata.GameComponents
 {
     class Player
     {
-        public Deck PlayerDeck { get; set; }
+        public Deck PlayerCards { get; set; }
 
         public Player()
         {
-            PlayerDeck = new Deck(Cards.DeckType.PlayerDeck);
+            PlayerCards = new Deck(Cards.DeckType.PlayerDeck);
         }
     }
 }

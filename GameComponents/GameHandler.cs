@@ -25,7 +25,7 @@ namespace Karata.GameComponents
 
                 for (int j = 0; j < 4; j++)
                 {
-                    players[i].PlayerDeck.Push(deck.Pop());
+                    players[i].PlayerCards.Push(deck.Pop());
                 }
             }
 
@@ -33,7 +33,7 @@ namespace Karata.GameComponents
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    Console.WriteLine(players[i].PlayerDeck.Pop());
+                    Console.WriteLine(players[i].PlayerCards.Pop());
                 }
             }
         }
