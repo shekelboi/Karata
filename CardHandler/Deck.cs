@@ -10,26 +10,25 @@ namespace Karata.CardHandler
 {
     class Deck : IEnumerable
     {
-        protected List<Card> deck = new List<Card>();
-
+        protected List<Card> deckList = new List<Card>();
+       
         public int NumberOfDecks { get; }
-
-
+        
         protected static Random r = new Random();
 
         public IEnumerator GetEnumerator()
         {
-            return deck.GetEnumerator();
+            return deckList.GetEnumerator();
         }
 
-        public int Size { get { return deck.Count; } }
+        public int Size { get { return deckList.Count; } }
 
         public Card Pop()
         {
-            if (deck.Count > 0)
+            if (deckList.Count > 0)
             {
-                Card c = deck.First();
-                deck.RemoveAt(0);
+                Card c = deckList.First();
+                deckList.RemoveAt(0);
                 return c;
             }
             else
@@ -40,7 +39,12 @@ namespace Karata.CardHandler
 
         public void Push(Card c)
         {
-            deck.Add(c);
+            deckList.Add(c);
+        }
+        
+        public Card GetAt(int i)
+        {
+            return deckList[i];
         }
     }
 }

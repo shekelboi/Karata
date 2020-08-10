@@ -23,17 +23,15 @@ namespace Karata.CardHandler
                 {
                     for (int k = 0; k < 13; k++)
                     {
-                        deck.Add(new Card((CardName)k, (CardType)j));
+                        deckList.Add(new Card((CardName)k, (CardType)j));
                     }
                 }
 
-                deck.Add(new Card(CardName.Joker, CardType.JokerBlack));
-                deck.Add(new Card(CardName.Joker, CardType.JokerRed));
+                deckList.Add(new Card(CardName.Joker, CardType.JokerBlack));
+                deckList.Add(new Card(CardName.Joker, CardType.JokerRed));
             }
 
-            deck = deck.OrderBy(x => r.Next()).ToList();
-
-            Console.WriteLine(deck.Count);
+            deckList = deckList.OrderBy(x => r.Next()).ToList();
         }
     }
 }
