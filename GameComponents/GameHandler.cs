@@ -11,11 +11,11 @@ namespace Karata.GameComponents
     {
         Player[] players;
 
-        Deck deck;
+        GameDeck deck;
 
-        public GameHandler(int numberOfPlayers)
+        public GameHandler(int numberOfPlayers, int numberOfDecks)
         {
-            deck = new Deck(Cards.DeckType.GameDeck);
+            deck = new GameDeck(numberOfDecks);
 
             players = new Player[numberOfPlayers];
 

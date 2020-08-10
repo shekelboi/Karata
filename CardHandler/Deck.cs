@@ -10,40 +10,12 @@ namespace Karata.CardHandler
 {
     class Deck : IEnumerable
     {
-        List<Card> deck = new List<Card>();
-        static Random r = new Random();
+        protected List<Card> deck = new List<Card>();
 
-        public Deck(DeckType deckType)
-        {
-            switch (deckType)
-            {
-                case DeckType.GameDeck:
-                    LoadCards();
-                    break;
-                case DeckType.PlayerDeck:
-                    break;
-                default:
-                    break;
-            }
-        }
-        
-        public void LoadCards()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 13; j++)
-                {
-                    deck.Add(new Card((CardName)j, (CardType)i));
-                }
-            }
+        public int NumberOfDecks { get; }
 
-            deck.Add(new Card(CardName.Joker, CardType.JokerBlack));
-            deck.Add(new Card(CardName.Joker, CardType.JokerRed));
 
-            deck = deck.OrderBy(x => r.Next()).ToList();
-
-            Console.WriteLine(deck.Count);
-        }
+        protected static Random r = new Random();
 
         public IEnumerator GetEnumerator()
         {

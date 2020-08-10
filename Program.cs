@@ -12,7 +12,7 @@ namespace Karata
     {
         static void Main(string[] args)
         {
-            GameHandler gh = new GameHandler(2);
+            GameHandler gh = new GameHandler(2, 200);
         }
     }
 }

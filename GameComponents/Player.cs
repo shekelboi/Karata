@@ -13,7 +13,7 @@ namespace Karata.GameComponents
 
         public Player()
         {
-            PlayerCards = new Deck(Cards.DeckType.PlayerDeck);
+            PlayerCards = new Deck();
         }
     }
 }

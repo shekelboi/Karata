@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardHandler\GameDeck.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\CardName.cs" />
     <Compile Include="Cards\CardType.cs" />
