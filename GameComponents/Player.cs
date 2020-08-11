@@ -10,10 +10,12 @@ namespace Karata.GameComponents
     class Player
     {
         public Deck PlayerCards { get; set; }
+        public int ID { get; }
 
-        public Player()
+        public Player(int id)
         {
             PlayerCards = new Deck();
+            this.ID = id;
         }
     }
 }

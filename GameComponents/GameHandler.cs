@@ -10,7 +10,15 @@ namespace Karata.GameComponents
 {
     class GameHandler
     {
-        Tuple<Player, int> currentPlayer;
+        int currentPlayerId;
+
+        Player currentPlayer
+        {
+            get
+            {
+                return players[currentPlayerId];
+            }
+        }
 
         Player[] players;
 
@@ -39,7 +47,7 @@ namespace Karata.GameComponents
 
             for (int i = 0; i < players.Length; i++)
             {
-                players[i] = new Player();
+                players[i] = new Player(i);
 
                 for (int j = 0; j < 4; j++)
                 {
@@ -47,22 +55,45 @@ namespace Karata.GameComponents
                 }
             }
 
-            currentPlayer = new Tuple<Player, int>(players[0], 0);
-            
+            currentPlayerId = 0;
+
             StartGame();
         }
 
         public void StartGame()
         {
+            Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
             Console.WriteLine("Your cards are the following:");
 
-            foreach (Card c in currentPlayer.Item1.PlayerCards)
+            foreach (Card c in currentPlayer.PlayerCards)
             {
                 Console.WriteLine(c);
             }
             
+
             Console.WriteLine("Draw a card (d) or put a card down (number of the card)");
-            Console.ReadLine();
+            string input = Console.ReadLine();
+
+            if (input == "d")
+            {
+
+            }
+            else if (int.TryParse(input, out int result))
+            {
+                if (result < 0 || result >= currentPlayer.PlayerCards.Size)
+                {
+                    StartGame();
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                StartGame();
+            }
+
             if (!gameOver)
             {
                 NextPlayer();
@@ -81,13 +112,13 @@ namespace Karata.GameComponents
 
         public void NextPlayer()
         {
-            if (currentPlayer.Item2 == players.Length - 1)
+            if (currentPlayerId == players.Length - 1)
             {
-                currentPlayer = new Tuple<Player, int>(players[0], 0);
+                currentPlayerId = 0;
             }
             else
             {
-                currentPlayer = new Tuple<Player, int>(players[currentPlayer.Item2 + 1], currentPlayer.Item2 + 1);
+                currentPlayerId++;
             }
         }
     }
