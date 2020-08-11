@@ -27,6 +27,14 @@ namespace Karata.GameComponents
         // The card that the last player disposed of.
         Card lastCard;
 
+        // The card the player currently posesses.
+        Card currentCard;
+
+        // Mode for the next turn.
+        NextTurn mode;
+
+        bool clockWise;
+
         bool gameOver
         {
             get
@@ -44,6 +52,10 @@ namespace Karata.GameComponents
 
         public GameHandler(int numberOfPlayers, int numberOfDecks)
         {
+            clockWise = true;
+
+            mode = NextTurn.None;
+
             deck = new GameDeck(numberOfDecks);
 
             players = new Player[numberOfPlayers];
@@ -65,64 +77,89 @@ namespace Karata.GameComponents
 
         public void StartGame()
         {
-            Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
-            Console.WriteLine("Your cards are the following:");
-
-            foreach (Card c in currentPlayer.PlayerCards)
+            while (!gameOver)
             {
-                Console.WriteLine(c);
-            }
-            
+                Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
+                Console.WriteLine("Your cards are the following:");
 
-            Console.WriteLine("Draw a card (d) or put a card down (number of the card)");
-            string input = Console.ReadLine();
-
-            if (input == "d")
-            {
-                currentPlayer.PlayerCards.Push(deck.Pop());
-            }
-            else if (int.TryParse(input, out int result))
-            {
-                if (result < 0 || result >= currentPlayer.PlayerCards.Size)
+                foreach (Card c in currentPlayer.PlayerCards)
                 {
-                    StartGame();
+                    Console.WriteLine(c);
+                }
+
+
+                Console.WriteLine("Draw a card (d) or put a card down (number of the card)");
+                string input = Console.ReadLine();
+
+                if (input == "d")
+                {
+                    currentPlayer.PlayerCards.Push(deck.Pop());
+                }
+                else if (int.TryParse(input, out int result))
+                {
+                    if (result < 0 || result >= currentPlayer.PlayerCards.Size)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        currentCard = currentPlayer.PlayerCards.PopAt(result);
+                    }
                 }
                 else
                 {
-
+                    continue;
                 }
-            }
-            else
-            {
-                StartGame();
+
+                NextPlayer();
             }
 
-            if (!gameOver)
-            {
-                NextPlayer();
-                StartGame();
-            }
-            else
-            {
-                GameOver();
-            }
+            GameOver();
         }
 
         public void GameOver()
         {
             Console.WriteLine("Game over!");
+            Console.ReadKey(true);
         }
 
         public void NextPlayer()
         {
-            if (currentPlayerId == players.Length - 1)
+            if (clockWise)
             {
-                currentPlayerId = 0;
+                if (currentPlayerId == players.Length - 1)
+                {
+                    currentPlayerId = 0;
+                }
+                else
+                {
+                    currentPlayerId++;
+                }
             }
             else
             {
-                currentPlayerId++;
+                if (currentPlayerId == 0)
+                {
+                    currentPlayerId = players.Length - 1;
+                }
+                else
+                {
+                    currentPlayerId--;
+                }
             }
+        }
+
+        public NextTurn NextMoveIsPossible()
+        {
+            if (currentCard == null)
+            {
+                return NextTurn.None;
+            }
+            else if (currentCard.Name == CardName.Ace)
+            {
+
+            }
+            return NextTurn.None;
         }
     }
 }

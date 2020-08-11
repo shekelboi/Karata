@@ -52,6 +52,7 @@
     <Compile Include="CardHandler\Deck.cs" />
     <Compile Include="Cards\DeckType.cs" />
     <Compile Include="GameComponents\GameHandler.cs" />
+    <Compile Include="GameComponents\NextTurn.cs" />
     <Compile Include="GameComponents\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

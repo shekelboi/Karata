@@ -21,6 +21,8 @@ namespace Karata.CardHandler
             return deckList.GetEnumerator();
         }
 
+
+        // TODO: once the deck goes below a specific number, it should refill itself automatically.
         public int Size { get { return deckList.Count; } }
 
         public Card Pop()
@@ -45,6 +47,18 @@ namespace Karata.CardHandler
         public Card GetAt(int i)
         {
             return deckList[i];
+        }
+
+        /// <summary>
+        /// Removes a card from the deck at a given index.
+        /// </summary>
+        /// <param name="i">index</param>
+        /// <returns>Card at the given index.</returns>
+        public Card PopAt(int i)
+        {
+            Card c = GetAt(i);
+            deckList.RemoveAt(i);
+            return c;
         }
     }
 }
