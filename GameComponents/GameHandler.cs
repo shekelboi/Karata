@@ -24,6 +24,9 @@ namespace Karata.GameComponents
 
         GameDeck deck;
 
+        // The card that the last player disposed of.
+        Card lastCard;
+
         bool gameOver
         {
             get
@@ -76,7 +79,7 @@ namespace Karata.GameComponents
 
             if (input == "d")
             {
-
+                currentPlayer.PlayerCards.Push(deck.Pop());
             }
             else if (int.TryParse(input, out int result))
             {
