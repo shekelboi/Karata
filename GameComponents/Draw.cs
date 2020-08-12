@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Karata.GameComponents
 {
-    enum NextTurn
+    enum Draw
     {
         None,
-        DrawTwo,
-        DrawThree,
-        DrawFive,
-        Jump,
-        Question,
-        ColorChosen,
-        Kickback
+        Two,
+        Three,
+        Five,
     }
 }

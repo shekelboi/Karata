@@ -27,11 +27,8 @@ namespace Karata.GameComponents
         // The card that the last player disposed of.
         Card lastCard;
 
-        // The card the player currently posesses.
-        Card currentCard;
-
         // Mode for the next turn.
-        NextTurn mode;
+        Draw mode;
 
         bool clockWise;
 
@@ -54,7 +51,9 @@ namespace Karata.GameComponents
         {
             clockWise = true;
 
-            mode = NextTurn.None;
+            lastCard = new Card();
+
+            mode = Draw.None;
 
             deck = new GameDeck(numberOfDecks);
 
@@ -75,11 +74,12 @@ namespace Karata.GameComponents
             StartGame();
         }
 
-        public void StartGame()
+        private void StartGame()
         {
             while (!gameOver)
             {
                 Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
+                Console.WriteLine("Current card: {0}", lastCard.Name);
                 Console.WriteLine("Your cards are the following:");
 
                 foreach (Card c in currentPlayer.PlayerCards)
@@ -103,7 +103,28 @@ namespace Karata.GameComponents
                     }
                     else
                     {
-                        currentCard = currentPlayer.PlayerCards.PopAt(result);
+                        if (ValidatePlayerCard(currentPlayer.PlayerCards.GetAt(result)))
+                        {
+                            Card currentCard = currentPlayer.PlayerCards.PopAt(result);
+                            if (currentCard.Name == CardName.Ace && mode == Draw.None)
+                            {
+                                bool choiceValid = false;
+                                int chooseType;
+                                do
+                                {
+                                    Console.WriteLine("Hearts, spades, diamonds or clubs?");
+                                    choiceValid = int.TryParse(Console.ReadLine(), out chooseType);
+                                    if (choiceValid)
+                                    {
+                                        if (chooseType >= 0 && chooseType < 4)
+                                        {
+                                            choiceValid = true;
+                                        }
+                                    }
+                                } while (!choiceValid);
+                                lastCard = new Card(CardName.Ace, (CardType)chooseType);
+                            }
+                        }
                     }
                 }
                 else
@@ -117,13 +138,13 @@ namespace Karata.GameComponents
             GameOver();
         }
 
-        public void GameOver()
+        private void GameOver()
         {
             Console.WriteLine("Game over!");
             Console.ReadKey(true);
         }
 
-        public void NextPlayer()
+        private void NextPlayer()
         {
             if (clockWise)
             {
@@ -149,17 +170,17 @@ namespace Karata.GameComponents
             }
         }
 
-        public NextTurn NextMoveIsPossible()
+        private bool ValidatePlayerCard(Card c)
         {
-            if (currentCard == null)
-            {
-                return NextTurn.None;
-            }
-            else if (currentCard.Name == CardName.Ace)
+            if (mode == Draw.None)
             {
 
             }
-            return NextTurn.None;
+            else
+            {
+
+            }
+            return false;
         }
     }
 }

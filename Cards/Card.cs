@@ -8,7 +8,7 @@ namespace Karata.Cards
 {
     class Card
     {
-        public Card(CardName name, CardType type)
+        public Card(CardName name = CardName.Blank, CardType type = CardType.Blank)
         {
             this.Name = name;
             this.Type = type;

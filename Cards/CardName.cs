@@ -21,6 +21,7 @@ namespace Karata.Cards
         Jack,
         Queen,
         King,
-        Joker
+        Joker,
+        Blank
     }
 }

@@ -13,6 +13,7 @@ namespace Karata.Cards
         Diamonds,
         Clubs,
         JokerRed,
-        JokerBlack
+        JokerBlack,
+        Blank
     }
 }
