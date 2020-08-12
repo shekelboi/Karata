@@ -80,10 +80,7 @@ namespace Karata.GameComponents
                 {
                     Console.WriteLine(c);
                 }
-
-
-                Console.WriteLine("Draw a card (d) or put a card down (number of the card)");
-                string input = Console.ReadLine();
+                
 
                 // If the player cannot put down any card.
                 bool playerMustDraw = true;
@@ -95,6 +92,14 @@ namespace Karata.GameComponents
                         playerMustDraw = false;
                         break;
                     }
+                }
+
+                string input = "";
+
+                if (!playerMustDraw)
+                {
+                    Console.WriteLine("Draw a card (d) or put a card down (number of the card)");
+                    input = Console.ReadLine();
                 }
 
                 if (input == "d" || playerMustDraw)
@@ -120,10 +125,12 @@ namespace Karata.GameComponents
                     {
                         currentPlayer.PlayerCards.Push(deck.Pop());
                     }
+
+                    mode = Draw.None;
                 }
                 else if (int.TryParse(input, out int result))
                 {
-                    if (result >= 0 || result < currentPlayer.PlayerCards.Size)
+                    if (result >= 0 && result < currentPlayer.PlayerCards.Size)
                     {
                         if (ValidatePlayerCard(currentPlayer.PlayerCards.GetAt(result)))
                         {
@@ -179,9 +186,14 @@ namespace Karata.GameComponents
                             // In all cases, the current card will be changed accordingly then be assigned to last card.
                             lastCard = currentCard;
                         }
+                        else
+                        {
+                            samePlayerComes = true;
+                        }
                     }
                     else
                     {
+                        Console.WriteLine("VALIDATION FAILURE");
                         // If the user input is incorrect, prompt the user again.
                         continue;
                     }
@@ -239,14 +251,42 @@ namespace Karata.GameComponents
 
         private bool ValidatePlayerCard(Card c)
         {
+            // If the card is Ace or last card is blank, no matter what, it can be put down.
+            if (lastCard.Type == CardType.Blank || c.Name == CardName.Ace)
+            {
+                return true;
+            }
             // TODO: add validation rules
             if (mode == Draw.None)
             {
+                // If they have the same type or value, they can be put on each other.
+                if (lastCard.Type == c.Type || lastCard.Name == c.Name)
+                {
+                    return true;
+                }
+                // Joker can be put on any card of the same color and any card of the same color can be put on joker.
+                else if (lastCard.Type == CardType.JokerBlack && (c.Type == CardType.Clubs || c.Type == CardType.Spades))
+                {
+                    return true;
+                }
+                else if (lastCard.Type == CardType.JokerRed && (c.Type == CardType.Diamonds || c.Type == CardType.Hearts))
+                {
+                    return true;
+                }
+                else if (c.Type == CardType.JokerRed && (lastCard.Type == CardType.Hearts || lastCard.Type == CardType.Diamonds))
+                {
+                    return true;
+                }
+                else if (c.Type == CardType.JokerBlack && (lastCard.Type == CardType.Clubs || lastCard.Type == CardType.Spades))
+                {
+                     return true;
+                }
 
+                return false;
             }
-            else
+            else if (mode == Draw.Two)
             {
-
+                // TODO: implement drawing modes
             }
             return true;
         }
