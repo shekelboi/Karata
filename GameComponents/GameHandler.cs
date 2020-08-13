@@ -72,18 +72,20 @@ namespace Karata.GameComponents
         {
             while (!gameOver)
             {
+                Console.WriteLine("Mode: {0}", mode);
                 Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
-                Console.WriteLine("Current card: {0}", lastCard.Name);
+                Console.WriteLine("Current card: {0}", lastCard);
                 Console.WriteLine("Your cards are the following:");
 
-                foreach (Card c in currentPlayer.PlayerCards)
-                {
-                    Console.WriteLine(c);
-                }
-                
 
-                // If the player cannot put down any card.
-                bool playerMustDraw = true;
+                for (int i = 0; i < currentPlayer.PlayerCards.Size; i++)
+                {
+                    Console.WriteLine("{0}. {1}", i, currentPlayer.PlayerCards.GetAt(i));
+                }
+
+
+            // If the player cannot put down any card.
+            bool playerMustDraw = true;
 
                 foreach (Card card in currentPlayer.PlayerCards)
                 {
@@ -125,8 +127,6 @@ namespace Karata.GameComponents
                     {
                         currentPlayer.PlayerCards.Push(deck.Pop());
                     }
-
-                    mode = Draw.None;
                 }
                 else if (int.TryParse(input, out int result))
                 {
@@ -284,8 +284,9 @@ namespace Karata.GameComponents
 
                 return false;
             }
-            else if (mode == Draw.Two)
+            else
             {
+                return false;
                 // TODO: implement drawing modes
             }
             return true;
