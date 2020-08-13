@@ -72,9 +72,10 @@ namespace Karata.GameComponents
         {
             while (!gameOver)
             {
+                Console.Clear();
                 Console.WriteLine("Mode: {0}", mode);
                 Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
-                Console.WriteLine("Current card: {0}", lastCard);
+                Console.WriteLine("Last card: {0}", lastCard);
                 Console.WriteLine("Your cards are the following:");
 
 
@@ -87,6 +88,7 @@ namespace Karata.GameComponents
             // If the player cannot put down any card.
             bool playerMustDraw = true;
 
+                // Check if player has no other option but to draw a card.
                 foreach (Card card in currentPlayer.PlayerCards)
                 {
                     if (ValidatePlayerCard(card))
@@ -106,6 +108,7 @@ namespace Karata.GameComponents
 
                 if (input == "d" || playerMustDraw)
                 {
+                    Console.WriteLine("DRAWING");
                     int drawThisManyTimes = 0;
                     switch (mode)
                     {
@@ -127,6 +130,8 @@ namespace Karata.GameComponents
                     {
                         currentPlayer.PlayerCards.Push(deck.Pop());
                     }
+
+                    mode = Draw.None;
                 }
                 else if (int.TryParse(input, out int result))
                 {
@@ -144,7 +149,10 @@ namespace Karata.GameComponents
                                         int chooseType;
                                         do
                                         {
-                                            Console.WriteLine("Hearts, spades, diamonds or clubs?");
+                                            Console.WriteLine("0. Hearts");
+                                            Console.WriteLine("1. Spades");
+                                            Console.WriteLine("2. Diamonds");
+                                            Console.WriteLine("3. Clubs");
                                             choiceValid = int.TryParse(Console.ReadLine(), out chooseType);
                                             if (choiceValid)
                                             {
@@ -286,10 +294,29 @@ namespace Karata.GameComponents
             }
             else
             {
+                switch (mode)
+                {
+                    case Draw.Two:
+                        if (c.Name == CardName.Two)
+                        {
+                            return true;
+                        }
+                        break;
+                    case Draw.Three:
+                        if (c.Name == CardName.Three)
+                        {
+                            return true;
+                        }
+                        break;
+                    case Draw.Five:
+                        if (c.Name == CardName.Joker)
+                        {
+                            return true;
+                        }
+                        break;
+                }
                 return false;
-                // TODO: implement drawing modes
             }
-            return true;
         }
     }
 }

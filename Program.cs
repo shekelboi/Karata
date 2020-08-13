@@ -12,7 +12,16 @@ namespace Karata
     {
         static void Main(string[] args)
         {
-            GameHandler gh = new GameHandler(4, 1000);
+            int players = 4, packs = 200;
+            //do
+            //{
+            //    Console.WriteLine("Enter the number of players:");
+            //} while (!int.TryParse(Console.ReadLine(), out players));
+            //do
+            //{
+            //    Console.WriteLine("Enter the number of decks (minimum one per player is recommended):");
+            //} while (!int.TryParse(Console.ReadLine(), out packs));
+            GameHandler gh = new GameHandler(players, packs);
         }
     }
 }
