@@ -1,5 +1,5 @@
 # Karata
-Karata is a famous game in Kenya. This is an implementation of that game in C#.
+Karata is a popular game in Kenya. This is an implementation of that game in C#.
 
 # Rules of Karata
 
