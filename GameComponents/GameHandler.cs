@@ -25,7 +25,8 @@ namespace Karata.GameComponents
         GameDeck deck;
 
         // The card that the last player disposed of.
-        Card lastCard = new Card();
+        Deck disposedDeck = new Deck();
+
 
         // Mode for the next turn.
         Draw mode = Draw.None;
@@ -52,8 +53,9 @@ namespace Karata.GameComponents
         public GameHandler(int numberOfPlayers, int numberOfDecks)
         {
             deck = new GameDeck(numberOfDecks);
-
             players = new Player[numberOfPlayers];
+
+            disposedDeck.Push(new Card());
 
             for (int i = 0; i < players.Length; i++)
             {
@@ -75,7 +77,7 @@ namespace Karata.GameComponents
                 Console.Clear();
                 Console.WriteLine("Mode: {0}", mode);
                 Console.WriteLine("Curentplayer: {0}", currentPlayerId + 1);
-                Console.WriteLine("Last card: {0}", lastCard);
+                Console.WriteLine("Last card: {0}", disposedDeck.Last());
                 Console.WriteLine("Your cards are the following:");
 
 
@@ -192,7 +194,7 @@ namespace Karata.GameComponents
                             }
 
                             // In all cases, the current card will be changed accordingly then be assigned to last card.
-                            lastCard = currentCard;
+                            disposedDeck.Push(currentCard);
                         }
                         else
                         {
@@ -260,7 +262,7 @@ namespace Karata.GameComponents
         private bool ValidatePlayerCard(Card c)
         {
             // If the card is Ace or last card is blank, no matter what, it can be put down.
-            if (lastCard.Type == CardType.Blank || c.Name == CardName.Ace)
+            if (disposedDeck.Last().Type == CardType.Blank || c.Name == CardName.Ace)
             {
                 return true;
             }
@@ -268,24 +270,24 @@ namespace Karata.GameComponents
             if (mode == Draw.None)
             {
                 // If they have the same type or value, they can be put on each other.
-                if (lastCard.Type == c.Type || lastCard.Name == c.Name)
+                if (disposedDeck.Last().Type == c.Type || disposedDeck.Last().Name == c.Name)
                 {
                     return true;
                 }
                 // Joker can be put on any card of the same color and any card of the same color can be put on joker.
-                else if (lastCard.Type == CardType.JokerBlack && (c.Type == CardType.Clubs || c.Type == CardType.Spades))
+                else if (disposedDeck.Last().Type == CardType.JokerBlack && (c.Type == CardType.Clubs || c.Type == CardType.Spades))
                 {
                     return true;
                 }
-                else if (lastCard.Type == CardType.JokerRed && (c.Type == CardType.Diamonds || c.Type == CardType.Hearts))
+                else if (disposedDeck.Last().Type == CardType.JokerRed && (c.Type == CardType.Diamonds || c.Type == CardType.Hearts))
                 {
                     return true;
                 }
-                else if (c.Type == CardType.JokerRed && (lastCard.Type == CardType.Hearts || lastCard.Type == CardType.Diamonds))
+                else if (c.Type == CardType.JokerRed && (disposedDeck.Last().Type == CardType.Hearts || disposedDeck.Last().Type == CardType.Diamonds))
                 {
                     return true;
                 }
-                else if (c.Type == CardType.JokerBlack && (lastCard.Type == CardType.Clubs || lastCard.Type == CardType.Spades))
+                else if (c.Type == CardType.JokerBlack && (disposedDeck.Last().Type == CardType.Clubs || disposedDeck.Last().Type == CardType.Spades))
                 {
                      return true;
                 }

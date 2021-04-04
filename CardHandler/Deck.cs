@@ -49,6 +49,11 @@ namespace Karata.CardHandler
             return deckList[i];
         }
 
+        public Card Last()
+        {
+            return deckList.Last();
+        }
+
         /// <summary>
         /// Removes a card from the deck at a given index.
         /// </summary>
